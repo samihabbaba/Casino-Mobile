@@ -1,0 +1,7 @@
+{
+  "name": "Casino App",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "angular"
+}
