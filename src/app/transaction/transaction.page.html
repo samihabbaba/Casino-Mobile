@@ -11,4 +11,48 @@
   ><ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
   </ion-refresher>
+
+  <div class="variation">
+    <ion-segment
+      (ionChange)="segmentChanged($event)"
+      [value]="activeVariation"
+      mode="ios"
+    >
+      <ion-segment-button value="pending">
+        <ion-label>Pending</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="submitted">
+        <ion-label>Submitted</ion-label>
+      </ion-segment-button>
+      <ion-segment-button value="history">
+        <ion-label>History</ion-label>
+      </ion-segment-button>
+    </ion-segment>
+  </div>
+
+  <div class="seperator">
+    <hr />
+  </div>
+
+  <div class="variation-selector">
+    <div
+      class="pending"
+      [class.active-variation]="activeVariation == 'pending'"
+    >
+      PENDING
+    </div>
+
+    <div
+      class="submitted"
+      [class.active-variation]="activeVariation == 'submitted'"
+    >
+      SUBMITTED
+    </div>
+    <div
+      class="history"
+      [class.active-variation]="activeVariation == 'history'"
+    >
+      HISTORY
+    </div>
+  </div>
 </ion-content>

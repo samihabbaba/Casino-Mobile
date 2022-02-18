@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Slips</ion-title>
+    <ion-title class="title">Slips</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -12,4 +12,145 @@
     <ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
   </ion-refresher>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col size="8"
+        ><ion-card class="ion-no-margin ion-padding ion-margin-vertical">
+          <h1 class="title ion-no-margin ion-margin-bottom">Add Slip</h1>
+          <div class="form-container" [formGroup]="form">
+            <div style="display: flex">
+              <ion-item style="padding-right: 4px">
+                <ion-label position="floating">In </ion-label>
+                <ion-input
+                  formControlName="in"
+                  min="0"
+                  type="number"
+                ></ion-input>
+                <ion-icon
+                  name="arrow-up-outline"
+                  color="primary"
+                  slot="end"
+                ></ion-icon>
+              </ion-item>
+              <ion-item style="padding-left: 4px">
+                <ion-label position="floating">Out</ion-label>
+                <ion-input
+                  formControlName="out"
+                  min="0"
+                  type="number"
+                ></ion-input>
+                <ion-icon
+                  name="arrow-down-outline"
+                  color="primary"
+                  slot="end"
+                ></ion-icon>
+              </ion-item>
+            </div>
+
+            <ion-item>
+              <ion-label position="floating">Customer</ion-label>
+              <ion-input formControlName="customerId" type="text"></ion-input>
+              <ion-icon
+                name="person-circle-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Credit</ion-label>
+              <ion-input
+                formControlName="credit"
+                min="0"
+                type="number"
+              ></ion-input>
+              <ion-icon
+                name="card-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating">Amount</ion-label>
+              <ion-input
+                formControlName="amount"
+                min="0"
+                type="number"
+              ></ion-input>
+              <ion-icon
+                name="cash-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
+            </ion-item>
+
+            <ion-item>
+              <ion-label>Active</ion-label>
+              <ion-toggle formControlName="isActive" slot="end"></ion-toggle>
+            </ion-item>
+
+            <div class="variation-selector">
+              <div class="sizes active-variation">
+                <div
+                  [class.active]="selectedCurrency === 1"
+                  (click)="changeSize(1)"
+                >
+                  TL
+                </div>
+                <div
+                  [class.active]="selectedCurrency === 2"
+                  (click)="changeSize(2)"
+                >
+                  Dollar
+                </div>
+                <div
+                  [class.active]="selectedCurrency === 3"
+                  (click)="changeSize(3)"
+                >
+                  Euro
+                </div>
+                <div
+                  [class.active]="selectedCurrency === 4"
+                  (click)="changeSize(4)"
+                >
+                  Pound
+                </div>
+              </div>
+            </div>
+
+            <ion-button
+              expand="block"
+              class="ion-margin-top main-button"
+              (click)="submitForm()"
+              >Submit</ion-button
+            >
+          </div>
+        </ion-card></ion-col
+      >
+      <ion-col size="4" class="machine-list">
+        <ion-searchbar
+          [debounce]="500"
+          [(ngModel)]="searchQuery"
+          (ionChange)="search($event)"
+          inputmode="numeric"
+          showClearButton="focus"
+          mode="ios"
+          class="ion-no-padding"
+        ></ion-searchbar>
+        <ion-card class="ion-no-margin ion-margin-bottom">
+          <ion-list>
+            <ion-item
+              button
+              (click)="handleListClick(item)"
+              class="ion-no-padding ion-text-center"
+              *ngFor="let item of machineList"
+            >
+              <ion-label>312</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card></ion-col
+      >
+    </ion-row>
+  </ion-grid>
 </ion-content>

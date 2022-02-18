@@ -19,33 +19,40 @@
           <h1 class="title ion-no-margin ion-margin-bottom">Add Meter</h1>
           <div class="form-container" [formGroup]="form">
             <ion-item>
-              <ion-label position="floating">
-                <ion-icon name="arrow-up-outline"></ion-icon>&nbsp; In
-              </ion-label>
+              <ion-label position="floating">In </ion-label>
               <ion-input formControlName="in" min="0" type="number"></ion-input>
+              <ion-icon
+                name="arrow-up-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
             </ion-item>
             <ion-item>
-              <ion-label position="floating"
-                ><ion-icon name="arrow-down-outline"></ion-icon>&nbsp;
-                Out</ion-label
-              >
+              <ion-label position="floating">Out</ion-label>
               <ion-input
                 formControlName="out"
                 min="0"
                 type="number"
               ></ion-input>
+              <ion-icon
+                name="arrow-down-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
             </ion-item>
 
             <ion-item>
-              <ion-label position="floating"
-                ><ion-icon name="server-outline"></ion-icon>&nbsp;
-                JackPot</ion-label
-              >
+              <ion-label position="floating">JackPot</ion-label>
               <ion-input
                 formControlName="jackPot"
                 min="0"
                 type="number"
               ></ion-input>
+              <ion-icon
+                name="server-outline"
+                color="primary"
+                slot="end"
+              ></ion-icon>
             </ion-item>
 
             <ion-button

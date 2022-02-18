@@ -89,31 +89,36 @@
     display: none !important;
   }
   ion-list {
-    max-height: calc(100vh - 300px);
+    max-height: calc(100vh - 280px);
     overflow: auto;
     overscroll-behavior: contain;
   }
 }
 
-
 .form-container {
   display: flex;
   flex-direction: column;
-  ion-item {
-    --padding-start: 0;
-    --border-color: #97979713;
-
-    ion-label {
-      color: #919191;
-      font-size: larger;
-    }
-
-    ion-input {
-      --color: #434343;
-    }
-  }
 }
 
+.form-container ion-item {
+  --padding-start: 0;
+  --border-color: #dadada;
+}
+
+.form-container ion-item ion-label {
+  color: #a6a6a6;
+  font-weight: 500;
+}
+
+.form-container ion-item ion-icon {
+  margin-top: auto;
+  color: #c6cbd4;
+  font-size: 19px;
+}
+
+.form-container ion-button {
+  margin-top: 48px;
+}
 
 .title {
   color: #434343;
