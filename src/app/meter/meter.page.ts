@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -8,9 +9,13 @@ import { ToastService } from '../services/toast.service';
 })
 export class MeterPage implements OnInit {
 
-  constructor(private toast: ToastService) { }
+  constructor(private toast: ToastService, private menuCtrl: MenuController) { }
 
   ngOnInit() {
+  }
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
 
 

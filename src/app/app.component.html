@@ -1,8 +1,12 @@
 <ion-menu side="start" contentId="main">
   <ion-content>
     <ion-list>
+      <ion-item>
+        <ion-icon color="primary" name="person" slot="start"></ion-icon>
+        <ion-label>Current User</ion-label>
+      </ion-item>
       <ion-item button (click)="logout()">
-        <ion-icon name="log-out-outline" slot="start"></ion-icon>
+        <ion-icon color="danger" name="log-out-outline" slot="start"></ion-icon>
         <ion-label>Log Out</ion-label>
       </ion-item>
     </ion-list>

@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuController } from '@ionic/angular';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -7,10 +8,12 @@ import { ToastService } from '../services/toast.service';
   styleUrls: ['./transaction.page.scss'],
 })
 export class TransactionPage implements OnInit {
+  constructor(private toast: ToastService, private menuCtrl: MenuController) {}
 
-  constructor(private toast: ToastService) { }
+  ngOnInit() {}
 
-  ngOnInit() {
+  ionViewWillEnter() {
+    this.menuCtrl.enable(true);
   }
 
   doRefresh(event) {
@@ -21,5 +24,4 @@ export class TransactionPage implements OnInit {
       event.target.complete();
     }, 2000);
   }
-
 }

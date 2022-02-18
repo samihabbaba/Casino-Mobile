@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, ToastController } from '@ionic/angular';
+import { MenuController, NavController, ToastController } from '@ionic/angular';
 import { AuthService } from '../services/auth.service';
 import { ToastService } from '../services/toast.service';
 
@@ -15,9 +15,14 @@ export class LoginPage implements OnInit {
 
   constructor(
     private navCtrl: NavController,
+    private menuCtrl: MenuController,
     private toast: ToastService,
     private authService: AuthService
   ) {}
+
+  ionViewWillEnter() {
+    this.menuCtrl.enable(false);
+  }
 
   ngOnInit() {}
 
