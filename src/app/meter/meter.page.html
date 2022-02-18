@@ -3,30 +3,77 @@
     <ion-buttons slot="start">
       <ion-menu-button></ion-menu-button>
     </ion-buttons>
-    <ion-title>Meter</ion-title>
+    <ion-title class="title">Meter</ion-title>
   </ion-toolbar>
 </ion-header>
 
-<ion-content >
+<ion-content>
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
   </ion-refresher>
 
   <ion-grid>
     <ion-row>
-      <ion-col size="9"
-        ><ion-card class="ion-no-margin ion-margin-vertical">
-          s
+      <ion-col size="8"
+        ><ion-card class="ion-no-margin ion-padding ion-margin-vertical">
+          <h1 class="title ion-no-margin ion-margin-bottom">Add Meter</h1>
+          <div class="form-container" [formGroup]="form">
+            <ion-item>
+              <ion-label position="floating">
+                <ion-icon name="arrow-up-outline"></ion-icon>&nbsp; In
+              </ion-label>
+              <ion-input formControlName="in" min="0" type="number"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating"
+                ><ion-icon name="arrow-down-outline"></ion-icon>&nbsp;
+                Out</ion-label
+              >
+              <ion-input
+                formControlName="out"
+                min="0"
+                type="number"
+              ></ion-input>
+            </ion-item>
+
+            <ion-item>
+              <ion-label position="floating"
+                ><ion-icon name="server-outline"></ion-icon>&nbsp;
+                JackPot</ion-label
+              >
+              <ion-input
+                formControlName="jackPot"
+                min="0"
+                type="number"
+              ></ion-input>
+            </ion-item>
+
+            <ion-button
+              expand="block"
+              class="ion-margin-top main-button"
+              (click)="submitForm()"
+              >Submit</ion-button
+            >
+          </div>
         </ion-card></ion-col
       >
-      <ion-col size="3" class="machine-list">
-        <ion-searchbar mode="ios" class="ion-no-padding"></ion-searchbar>
+      <ion-col size="4" class="machine-list">
+        <ion-searchbar
+          [debounce]="500"
+          [(ngModel)]="searchQuery"
+          (ionChange)="search($event)"
+          inputmode="numeric"
+          showClearButton="focus"
+          mode="ios"
+          class="ion-no-padding"
+        ></ion-searchbar>
         <ion-card class="ion-no-margin ion-margin-bottom">
           <ion-list>
             <ion-item
               button
+              (click)="handleListClick(item)"
               class="ion-no-padding ion-text-center"
-              *ngFor="let item of [1,2,3,4,5,6,7,8,9,1,2,3,5,5,6,7,6,1,2,3,4,5,6,7,8,9,1,2,3,5,5,6,7,6]"
+              *ngFor="let item of machineList"
             >
               <ion-label>312</ion-label>
             </ion-item>

@@ -12,6 +12,15 @@ export class ToastService {
       message: message,
       duration: 2000,
       color: 'success',
+      buttons: [
+        {
+          side: 'end',
+          text: 'Close',
+          handler: () => {
+            toast.dismiss();
+          },
+        },
+      ],
     });
     toast.present();
   }
@@ -21,6 +30,15 @@ export class ToastService {
       message: message,
       duration: 2000,
       color: 'danger',
+      buttons: [
+        {
+          side: 'end',
+          text: 'Close',
+          handler: () => {
+            toast.dismiss();
+          },
+        },
+      ],
     });
     toast.present();
   }
@@ -30,6 +48,15 @@ export class ToastService {
       message: message,
       duration: 2000,
       color: 'dark',
+      buttons: [
+        {
+          side: 'end',
+          text: 'Close',
+          handler: () => {
+            toast.dismiss();
+          },
+        },
+      ],
     });
     toast.present();
   }

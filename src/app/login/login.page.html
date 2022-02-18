@@ -1,16 +1,16 @@
-<ion-content class="ion-padding" >
+<ion-content class="ion-padding">
   <div class="ion-padding container main-wrapper">
     <h1>Login</h1>
 
     <div class="form-container">
       <ion-item>
         <ion-label position="floating">Username</ion-label>
-        <ion-input [autocomplete]="false" [(ngModel)]="username"></ion-input>
+        <ion-input autocomplete="off" [(ngModel)]="username"></ion-input>
       </ion-item>
       <ion-item>
         <ion-label position="floating">Password</ion-label>
         <ion-input
-          [autocomplete]="false"
+          autocomplete="off"
           [(ngModel)]="password"
           [type]="passwordVisible ? 'text' : 'password'"
         ></ion-input>
