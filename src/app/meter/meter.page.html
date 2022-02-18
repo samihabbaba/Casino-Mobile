@@ -7,9 +7,32 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content >
   <ion-refresher slot="fixed" (ionRefresh)="doRefresh($event)">
     <ion-refresher-content refreshingSpinner="circles"></ion-refresher-content>
   </ion-refresher>
 
+  <ion-grid>
+    <ion-row>
+      <ion-col size="9"
+        ><ion-card class="ion-no-margin ion-margin-vertical">
+          s
+        </ion-card></ion-col
+      >
+      <ion-col size="3" class="machine-list">
+        <ion-searchbar mode="ios" class="ion-no-padding"></ion-searchbar>
+        <ion-card class="ion-no-margin ion-margin-bottom">
+          <ion-list>
+            <ion-item
+              button
+              class="ion-no-padding ion-text-center"
+              *ngFor="let item of [1,2,3,4,5,6,7,8,9,1,2,3,5,5,6,7,6,1,2,3,4,5,6,7,8,9,1,2,3,5,5,6,7,6]"
+            >
+              <ion-label>312</ion-label>
+            </ion-item>
+          </ion-list>
+        </ion-card></ion-col
+      >
+    </ion-row>
+  </ion-grid>
 </ion-content>
