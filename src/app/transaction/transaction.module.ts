@@ -7,14 +7,16 @@ import { IonicModule } from '@ionic/angular';
 import { TransactionPageRoutingModule } from './transaction-routing.module';
 
 import { TransactionPage } from './transaction.page';
+import { NgxDatatableModule } from '@swimlane/ngx-datatable';
 
 @NgModule({
   imports: [
     CommonModule,
     FormsModule,
     IonicModule,
-    TransactionPageRoutingModule
+    NgxDatatableModule,
+    TransactionPageRoutingModule,
   ],
-  declarations: [TransactionPage]
+  declarations: [TransactionPage],
 })
 export class TransactionPageModule {}

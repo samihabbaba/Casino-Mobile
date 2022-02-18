@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController, MenuController } from '@ionic/angular';
+import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -93,4 +94,91 @@ export class TransactionPage implements OnInit {
       .fromTo('opacity', '1', '0.2')
       .play();
   }
+
+  columns = [
+    { name: 'Name' },
+    { name: 'Company' },
+    { name: 'Genre' }
+  ];
+
+  ColumnMode = ColumnMode;
+  SelectionType = SelectionType;
+  selected = [];
+  displayCheck(row) {
+    return row.name !== 'Ethel Price';
+  }
+
+  onSelect({ selected }) {
+    console.log('Select Event', selected, this.selected);
+
+    this.selected.splice(0, this.selected.length);
+    this.selected.push(...selected);
+  }
+
+  onActivate(event) {
+    console.log('Activate Event', event);
+  }
+  movies = [
+    {
+      name: 'Escape Room',
+      company: 'Columbia Pictures',
+      genre: 'Horror',
+    },
+    {
+      name: 'Rust Creek',
+      company: 'IFC Films',
+      genre: 'Drama',
+    },
+    {
+      name: 'American Hangman',
+      company: 'Hangman Productions',
+      genre: 'Thriller',
+    },
+    {
+      name: 'The Upside',
+      company: 'STX Entertainment',
+      genre: 'Comedy',
+    },
+    {
+      name: 'Replicas',
+      company: 'Entertainment Studios',
+      genre: 'Sci-Fi',
+    },
+    {
+      name: 'After Darkness',
+      company: 'Grindstone Group',
+      genre: 'Drama',
+    },
+    {
+      name: 'Glass',
+      company: 'Universal Pictures',
+      genre: 'Superhero',
+    },
+    {
+      name: 'Close',
+      company: 'Netflix',
+      genre: 'Action',
+    },
+    {
+      name: 'The Final Wish',
+      company: 'BondIt Capital',
+      genre: 'Horror',
+    },
+    {
+      name: 'Serenity',
+      company: 'Aviron Pictures',
+      genre: 'Drama',
+    },
+    {
+      name: 'Miss Bala',
+      company: 'Columbia Pictures',
+      genre: 'Thriller',
+    },
+    {
+      name: 'Velvet Buzzsaw',
+      company: 'Netflix',
+      genre: 'Comedy',
+    },
+  ];
 }
+

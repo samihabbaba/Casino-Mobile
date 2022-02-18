@@ -19,13 +19,19 @@
       mode="ios"
     >
       <ion-segment-button value="pending">
-        <ion-label>Pending</ion-label>
+        <ion-label
+          ><ion-icon name="timer-outline"></ion-icon>&nbsp;Pending</ion-label
+        >
       </ion-segment-button>
       <ion-segment-button value="submitted">
-        <ion-label>Submitted</ion-label>
+        <ion-label
+          ><ion-icon name="send-outline"></ion-icon>&nbsp;Submitted</ion-label
+        >
       </ion-segment-button>
       <ion-segment-button value="history">
-        <ion-label>History</ion-label>
+        <ion-label
+          ><ion-icon name="reload-outline"></ion-icon> &nbsp;History</ion-label
+        >
       </ion-segment-button>
     </ion-segment>
   </div>
@@ -39,7 +45,42 @@
       class="pending"
       [class.active-variation]="activeVariation == 'pending'"
     >
-      PENDING
+      <ngx-datatable
+        style="width: 95%"
+        class="material"
+        [rows]="movies"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="60"
+        [rowHeight]="50"
+        [limit]="8"
+        [selected]="selected"
+        [selectionType]="SelectionType.checkbox"
+        [selectAllRowsOnPage]="false"
+        [displayCheck]="displayCheck"
+        (activate)="onActivate($event)"
+        (select)="onSelect($event)"
+      >
+        <ngx-datatable-column
+          [width]="20"
+          [sortable]="false"
+          [canAutoResize]="false"
+          [draggable]="false"
+          [resizeable]="false"
+          [headerCheckboxable]="true"
+          [checkboxable]="true"
+        >
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Name"></ngx-datatable-column>
+        <ngx-datatable-column name="Genre"></ngx-datatable-column>
+        <ngx-datatable-column name="Company"></ngx-datatable-column>
+        <ngx-datatable-column name="Delete">
+          <ng-template let-value="value" ngx-datatable-cell-template>
+            <ion-button>
+              <ion-icon color="danger" slot="icon-only" name="trash"></ion-icon>
+            </ion-button> </ng-template
+        ></ngx-datatable-column>
+      </ngx-datatable>
     </div>
 
     <div
