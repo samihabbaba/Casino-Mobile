@@ -1,0 +1,29 @@
+<ion-content class="ion-padding" >
+  <div class="ion-padding container main-wrapper">
+    <h1>Login</h1>
+
+    <div class="form-container">
+      <ion-item>
+        <ion-label position="floating">Username</ion-label>
+        <ion-input [autocomplete]="false" [(ngModel)]="username"></ion-input>
+      </ion-item>
+      <ion-item>
+        <ion-label position="floating">Password</ion-label>
+        <ion-input
+          [autocomplete]="false"
+          [(ngModel)]="password"
+          [type]="passwordVisible ? 'text' : 'password'"
+        ></ion-input>
+        <ion-icon
+          (click)="passwordVisible = !passwordVisible"
+          [name]="passwordVisible ? 'eye-off' :'eye'"
+          slot="end"
+        ></ion-icon>
+      </ion-item>
+
+      <ion-button expand="block" class="main-button" (click)="login()"
+        >Log in</ion-button
+      >
+    </div>
+  </div>
+</ion-content>
