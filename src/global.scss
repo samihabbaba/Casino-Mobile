@@ -131,3 +131,14 @@
 .page-count {
   display: none !important;
 }
+
+.datatable-row-center {
+  datatable-body-cell:last-child {
+    display: flex !important;
+    align-items: center !important;
+  }
+}
+
+#deleteBtn {
+  --ripple-color: #eb445a;
+}

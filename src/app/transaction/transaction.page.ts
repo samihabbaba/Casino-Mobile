@@ -95,18 +95,15 @@ export class TransactionPage implements OnInit {
       .play();
   }
 
-  columns = [
-    { name: 'Name' },
-    { name: 'Company' },
-    { name: 'Genre' }
-  ];
+
+
 
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
   selected = [];
-  displayCheck(row) {
-    return row.name !== 'Ethel Price';
-  }
+  // displayCheck(row) {
+  //   return row.name !== 'Ethel Price';
+  // }
 
   onSelect({ selected }) {
     console.log('Select Event', selected, this.selected);
@@ -116,8 +113,14 @@ export class TransactionPage implements OnInit {
   }
 
   onActivate(event) {
+    // event.stopPropagation()
     console.log('Activate Event', event);
   }
+
+  deleteTransaction(item) {
+    console.log(item)
+  }
+
   movies = [
     {
       name: 'Escape Room',
@@ -181,4 +184,3 @@ export class TransactionPage implements OnInit {
     },
   ];
 }
-

@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { NavController } from '@ionic/angular';
 import { AuthService } from './services/auth.service';
 
 @Component({
@@ -7,9 +8,12 @@ import { AuthService } from './services/auth.service';
   styleUrls: ['app.component.scss'],
 })
 export class AppComponent {
-  constructor(private authService: AuthService) {}
+  constructor(
+    private authService: AuthService,
+    private navCtrl: NavController
+  ) {}
 
   logout() {
-    
+    this.navCtrl.navigateRoot('/login', { animationDirection: 'back' });
   }
 }
