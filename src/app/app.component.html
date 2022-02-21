@@ -3,7 +3,7 @@
     <ion-list>
       <ion-item>
         <ion-icon color="primary" name="person-outline" slot="start"></ion-icon>
-        <ion-label>Current User</ion-label>
+        <ion-label>{{ authService.currentUser?.name }}</ion-label>
       </ion-item>
       <ion-item button (click)="logout()">
         <ion-icon color="danger" name="log-out-outline" slot="start"></ion-icon>

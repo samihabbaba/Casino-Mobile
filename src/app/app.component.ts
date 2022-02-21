@@ -9,11 +9,11 @@ import { AuthService } from './services/auth.service';
 })
 export class AppComponent {
   constructor(
-    private authService: AuthService,
+    public authService: AuthService,
     private navCtrl: NavController
   ) {}
 
   logout() {
-    this.navCtrl.navigateRoot('/login', { animationDirection: 'back' });
+    this.authService.logOut();
   }
 }

@@ -28,6 +28,22 @@ export class LoginPage implements OnInit {
 
   login() {
     const obj = { username: this.username, password: this.password };
-    this.navCtrl.navigateRoot('/slips', { animationDirection: 'forward' });
+    this.authService.login(obj).subscribe(
+      (resp) => {
+        if (
+          this.authService.currentUser?.role !== 'Chief' &&
+          this.authService.currentUser?.role !== 'Attendant'
+        ) {
+          this.authService.logOut();
+        } else {
+          this.navCtrl.navigateRoot('/slips', {
+            animationDirection: 'forward',
+          });
+        }
+      },
+      (err) => {
+        this.toast.dark('Check your credentials');
+      }
+    );
   }
 }
