@@ -35,6 +35,7 @@ export class LoginPage implements OnInit {
           this.authService.currentUser?.role !== 'Attendant'
         ) {
           this.authService.logOut();
+          this.toast.dark('Check your credentials');
         } else {
           this.navCtrl.navigateRoot('/slips', {
             animationDirection: 'forward',

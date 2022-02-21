@@ -16,48 +16,50 @@
     <ion-row>
       <ion-col size="8"
         ><ion-card class="ion-no-margin ion-padding ion-margin-vertical">
-          <h1 class="title ion-no-margin ion-margin-bottom">Add Slip</h1>
-          <div class="form-container" [formGroup]="form">
-            <div style="display: flex">
-              <ion-item style="padding-right: 4px">
-                <ion-label position="floating">In </ion-label>
-                <ion-input
-                  formControlName="in"
-                  min="0"
-                  type="number"
-                ></ion-input>
-                <ion-icon
-                  name="arrow-up-outline"
-                  color="primary"
-                  slot="end"
-                ></ion-icon>
-              </ion-item>
-              <ion-item style="padding-left: 4px">
-                <ion-label position="floating">Out</ion-label>
-                <ion-input
-                  formControlName="out"
-                  min="0"
-                  type="number"
-                ></ion-input>
-                <ion-icon
-                  name="arrow-down-outline"
-                  color="primary"
-                  slot="end"
-                ></ion-icon>
-              </ion-item>
+          <h1 class="title ion-no-margin ion-margin-bottom">
+            Add Slip
+            <span *ngIf="selectedMachine?.seqNumber"
+              >( {{selectedMachine.seqNumber}} )</span
+            >
+          </h1>
+          <form class="form-container" [formGroup]="form">
+            <ion-list class="ion-no-padding">
+              <ion-radio-group formControlName="type">
+                <ion-item [disabled]="!selectedMachine">
+                  <ion-label>In</ion-label>
+                  <ion-radio slot="end" value="in"></ion-radio>
+                </ion-item>
+
+                <ion-item [disabled]="!selectedMachine">
+                  <ion-label>Out</ion-label>
+                  <ion-radio slot="end" value="out"></ion-radio>
+                </ion-item>
+
+                <ion-item [disabled]="!selectedMachine">
+                  <ion-label>JackPot</ion-label>
+                  <ion-radio slot="end" value="jackPot"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
+            <div
+              class="ion-padding-top"
+              style="padding-bottom: 2px"
+              [ngClass]="{disabled : !selectedMachine}"
+            >
+              <ion-label class="autoComplete-label">Customer</ion-label>
+              <ng-select
+                style="margin-top: 6px"
+                [items]="customers"
+                bindLabel="name"
+                notFoundText="No records found"
+                (keyup)="getCustomers($event)"
+                (change)="onCustomerSelect($event)"
+              >
+              </ng-select>
             </div>
 
-            <ion-item>
-              <ion-label position="floating">Customer</ion-label>
-              <ion-input formControlName="customerId" type="text"></ion-input>
-              <ion-icon
-                name="person-circle-outline"
-                color="primary"
-                slot="end"
-              ></ion-icon>
-            </ion-item>
-
-            <ion-item>
+            <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">Credit</ion-label>
               <ion-input
                 formControlName="credit"
@@ -71,7 +73,7 @@
               ></ion-icon>
             </ion-item>
 
-            <ion-item>
+            <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">Amount</ion-label>
               <ion-input
                 formControlName="amount"
@@ -85,40 +87,36 @@
               ></ion-icon>
             </ion-item>
 
-            <ion-item style="padding-top: 8px">
+            <!-- <ion-item style="padding-top: 8px">
               <ion-label>Active</ion-label>
               <ion-toggle
                 mode="md"
                 formControlName="isActive"
                 slot="end"
               ></ion-toggle>
-            </ion-item>
+            </ion-item> -->
 
             <div class="variation-selector">
               <div class="sizes active-variation">
                 <div
-                  [class.active]="selectedCurrency === 1"
-                  (click)="changeSize(1)"
+                  *ngFor="let item of currencyList"
+                  [class.active]="selectedCurrency === item.id"
+                  (click)="changeCurrency(item.id)"
                 >
-                  TL
+                  {{item.code}}
                 </div>
+              </div>
+            </div>
+
+            <div class="variation-selector" style="margin-top: 2.6rem">
+              <div class="sizes active-variation">
                 <div
-                  [class.active]="selectedCurrency === 2"
-                  (click)="changeSize(2)"
+                  *ngFor="let item of paymentTypes"
+                  [class.active]="selectedPaymentType === item"
+                  (click)="changePaymentType(item)"
+                  style="text-align: center"
                 >
-                  Dollar
-                </div>
-                <div
-                  [class.active]="selectedCurrency === 3"
-                  (click)="changeSize(3)"
-                >
-                  Euro
-                </div>
-                <div
-                  [class.active]="selectedCurrency === 4"
-                  (click)="changeSize(4)"
-                >
-                  Pound
+                  {{item}}
                 </div>
               </div>
             </div>
@@ -129,16 +127,16 @@
               (click)="submitForm()"
               >Submit</ion-button
             >
-          </div>
+          </form>
         </ion-card></ion-col
       >
       <ion-col size="4" class="machine-list">
         <ion-searchbar
-          [debounce]="500"
+          [debounce]="0"
           [(ngModel)]="searchQuery"
           (ionChange)="search($event)"
+          showClearButton="never"
           inputmode="numeric"
-          showClearButton="focus"
           mode="ios"
           class="ion-no-padding"
         ></ion-searchbar>
@@ -148,9 +146,10 @@
               button
               (click)="handleListClick(item)"
               class="ion-no-padding ion-text-center"
-              *ngFor="let item of machineList"
+              *ngFor="let item of copyOfMachineList"
+              [ngClass]="{'active-machine': item == selectedMachine}"
             >
-              <ion-label>312</ion-label>
+              <ion-label>{{item.seqNumber}}</ion-label>
             </ion-item>
           </ion-list>
         </ion-card></ion-col

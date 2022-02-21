@@ -6,6 +6,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { MenuController } from '@ionic/angular';
+import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -16,18 +17,19 @@ import { ToastService } from '../services/toast.service';
 export class MeterPage implements OnInit {
   form: FormGroup;
   searchQuery: string = '';
+  selectedMachine: any;
   machineList: any[] = [];
+  copyOfMachineList: any[] = [];
 
   constructor(
     private toast: ToastService,
     private menuCtrl: MenuController,
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private dataService: DataService
   ) {}
 
   ngOnInit() {
-    this.machineList = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 1, 2, 3, 5, 5, 6, 7, 6, 1, 2, 3, 4, 5, 6, 7,
-    ];
+    this.getMachines();
     this.initializeForm();
   }
 
@@ -43,6 +45,14 @@ export class MeterPage implements OnInit {
     });
   }
 
+  getMachines() {
+    this.dataService.getMachines().subscribe((resp) => {
+      this.machineList = resp;
+      this.copyOfMachineList = resp;
+      console.log(this.machineList);
+    });
+  }
+
   doRefresh(event) {
     this.initializeForm();
     event.target.complete();
@@ -55,11 +65,14 @@ export class MeterPage implements OnInit {
   }
 
   search(ev) {
-    console.log(ev);
-    console.log(this.searchQuery);
+    this.copyOfMachineList = this.machineList.filter(
+      (option) =>
+        String(option.seqNumber).indexOf(String(this.searchQuery)) === 0
+    );
   }
 
   handleListClick(item) {
-    console.log(item);
+    this.selectedMachine = item;
+    console.log(this.selectedMachine);
   }
 }

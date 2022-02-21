@@ -16,9 +16,14 @@
     <ion-row>
       <ion-col size="8"
         ><ion-card class="ion-no-margin ion-padding ion-margin-vertical">
-          <h1 class="title ion-no-margin ion-margin-bottom">Add Meter</h1>
+          <h1 class="title ion-no-margin ion-margin-bottom">
+            Add Meter
+            <span *ngIf="selectedMachine?.seqNumber"
+              >( {{selectedMachine.seqNumber}} )</span
+            >
+          </h1>
           <div class="form-container" [formGroup]="form">
-            <ion-item>
+            <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">In </ion-label>
               <ion-input formControlName="in" min="0" type="number"></ion-input>
               <ion-icon
@@ -27,7 +32,7 @@
                 slot="end"
               ></ion-icon>
             </ion-item>
-            <ion-item>
+            <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">Out</ion-label>
               <ion-input
                 formControlName="out"
@@ -41,7 +46,7 @@
               ></ion-icon>
             </ion-item>
 
-            <ion-item>
+            <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">JackPot</ion-label>
               <ion-input
                 formControlName="jackPot"
@@ -66,11 +71,11 @@
       >
       <ion-col size="4" class="machine-list">
         <ion-searchbar
-          [debounce]="500"
+          [debounce]="0"
           [(ngModel)]="searchQuery"
           (ionChange)="search($event)"
+          showClearButton="never"
           inputmode="numeric"
-          showClearButton="focus"
           mode="ios"
           class="ion-no-padding"
         ></ion-searchbar>
@@ -80,9 +85,10 @@
               button
               (click)="handleListClick(item)"
               class="ion-no-padding ion-text-center"
-              *ngFor="let item of machineList"
+              *ngFor="let item of copyOfMachineList"
+              [ngClass]="{'active-machine': item == selectedMachine}"
             >
-              <ion-label>312</ion-label>
+              <ion-label>{{item.seqNumber}}</ion-label>
             </ion-item>
           </ion-list>
         </ion-card></ion-col

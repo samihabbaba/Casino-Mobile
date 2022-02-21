@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 import { SlipsPageRoutingModule } from './slips-routing.module';
 
 import { SlipsPage } from './slips.page';
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { SlipsPage } from './slips.page';
     ReactiveFormsModule,
     IonicModule,
     SlipsPageRoutingModule,
+    NgSelectModule
   ],
   declarations: [SlipsPage],
 })
