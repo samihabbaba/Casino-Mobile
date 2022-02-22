@@ -39,9 +39,19 @@ export class MeterPage implements OnInit {
 
   initializeForm() {
     this.form = this.fb.group({
-      in: new FormControl(null, [Validators.required, Validators.min(0)]),
-      out: new FormControl(null, [Validators.required, Validators.min(0)]),
-      jackPot: new FormControl(null, [Validators.required, Validators.min(0)]),
+      checkInMeter: new FormControl(null, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      checkOutMeter: new FormControl(null, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      jackPotMeter: new FormControl(null, [
+        Validators.required,
+        Validators.min(0),
+      ]),
+      isOpenClose: new FormControl('true'),
     });
   }
 
@@ -55,13 +65,37 @@ export class MeterPage implements OnInit {
 
   doRefresh(event) {
     this.initializeForm();
-    event.target.complete();
+    this.selectedMachine = null;
+    this.dataService.getMachines().subscribe((resp) => {
+      this.machineList = resp;
+      this.copyOfMachineList = resp;
+      event.target.complete();
+    });
   }
 
   submitForm() {
-    const form = this.form.getRawValue();
-    this.toast.success('Your changes saved successfully');
-    console.log(form);
+    if (this.form.valid) {
+      const form = this.form.getRawValue();
+      if (form.isOpenClose === 'true') {
+        form.isOpenClose = true;
+      }
+      if (form.isOpenClose === 'false') {
+        form.isOpenClose = false;
+      }
+      this.dataService.addMeter(form, this.selectedMachine.id).subscribe(
+        (resp) => {
+          this.initializeForm();
+          this.selectedMachine = null;
+          this.getMachines();
+          this.toast.success('Your changes saved successfully');
+        },
+        (err) => {
+          this.toast.danger(err.error.Message);
+        }
+      );
+    } else {
+      this.toast.dark('Form is not valid');
+    }
   }
 
   search(ev) {

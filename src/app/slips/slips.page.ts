@@ -188,7 +188,14 @@ export class SlipsPage implements OnInit {
     this.form.get('currencyId').patchValue(currency.id);
     this.form.get('rate').patchValue(currency.rate);
 
-    this.resetAmountAndCredit();
+
+    if(this.recordType === 'Credit') {
+      this.amountChange('s');
+    }
+
+    if(this.recordType === 'Cancel Credit' || this.recordType === 'JackPot') {
+      this.creditChange('s');
+    }
   }
 
   get selectedPaymentType() {

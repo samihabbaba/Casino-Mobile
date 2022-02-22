@@ -45,12 +45,18 @@
       class="pending"
       [class.active-variation]="activeVariation === 'pending'"
     >
-      <ion-button mode="md" shape="round" class="submit-btn">Send</ion-button>
+      <ion-button
+        mode="md"
+        shape="round"
+        class="submit-btn"
+        (click)="submitPending()"
+        >Send</ion-button
+      >
 
       <ngx-datatable
         style="width: 95% !important"
         class="material"
-        [rows]="movies"
+        [rows]="pendingTransactions"
         [columnMode]="ColumnMode.force"
         [headerHeight]="50"
         [footerHeight]="60"
@@ -72,9 +78,13 @@
           [checkboxable]="true"
         >
         </ngx-datatable-column>
-        <ngx-datatable-column name="Name"></ngx-datatable-column>
-        <ngx-datatable-column name="Genre"></ngx-datatable-column>
-        <ngx-datatable-column name="Company"></ngx-datatable-column>
+        <ngx-datatable-column name="Machine"></ngx-datatable-column>
+        <ngx-datatable-column name="Amount">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Record Type"></ngx-datatable-column>
         <ngx-datatable-column id="deleteBtn" name="Delete">
           <ng-template
             class="delete-btn"
@@ -97,13 +107,47 @@
       class="submitted"
       [class.active-variation]="activeVariation === 'submitted'"
     >
-      SUBMITTED
+      <ngx-datatable
+        style="width: 95% !important"
+        class="material"
+        [rows]="submittedTransactions"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="60"
+        [rowHeight]="50"
+        [limit]="10"
+      >
+        <ngx-datatable-column name="Machine"></ngx-datatable-column>
+        <ngx-datatable-column name="Amount">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Record Type"></ngx-datatable-column>
+      </ngx-datatable>
     </div>
     <div
       class="history"
       [class.active-variation]="activeVariation === 'history'"
     >
-      HISTORY
+    <ngx-datatable
+    style="width: 95% !important"
+    class="material"
+    [rows]="historyTransactions"
+    [columnMode]="ColumnMode.force"
+    [headerHeight]="50"
+    [footerHeight]="60"
+    [rowHeight]="50"
+    [limit]="10"
+  >
+    <ngx-datatable-column name="Machine"></ngx-datatable-column>
+    <ngx-datatable-column name="Amount">
+      <ng-template let-row="row" ngx-datatable-cell-template>
+        {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
+      </ng-template>
+    </ngx-datatable-column>
+    <ngx-datatable-column name="Record Type"></ngx-datatable-column>
+  </ngx-datatable>
     </div>
   </div>
 </ion-content>

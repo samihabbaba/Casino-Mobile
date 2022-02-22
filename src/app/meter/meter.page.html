@@ -22,10 +22,28 @@
               >( {{selectedMachine.seqNumber}} )</span
             >
           </h1>
-          <div class="form-container" [formGroup]="form">
+          <div class="form-container" [formGroup]="form" >
+            <ion-list class="ion-no-padding">
+              <ion-radio-group formControlName="isOpenClose">
+                <ion-item [disabled]="!selectedMachine">
+                  <ion-label>Open</ion-label>
+                  <ion-radio slot="end" value="true"></ion-radio>
+                </ion-item>
+
+                <ion-item [disabled]="!selectedMachine">
+                  <ion-label>Close</ion-label>
+                  <ion-radio slot="end" value="false"></ion-radio>
+                </ion-item>
+              </ion-radio-group>
+            </ion-list>
+
             <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">In </ion-label>
-              <ion-input formControlName="in" min="0" type="number"></ion-input>
+              <ion-input
+                formControlName="checkInMeter"
+                min="0"
+                type="number"
+              ></ion-input>
               <ion-icon
                 name="arrow-up-outline"
                 color="primary"
@@ -35,7 +53,7 @@
             <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">Out</ion-label>
               <ion-input
-                formControlName="out"
+                formControlName="checkOutMeter"
                 min="0"
                 type="number"
               ></ion-input>
@@ -49,7 +67,7 @@
             <ion-item [disabled]="!selectedMachine">
               <ion-label position="floating">JackPot</ion-label>
               <ion-input
-                formControlName="jackPot"
+                formControlName="jackPotMeter"
                 min="0"
                 type="number"
               ></ion-input>

@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AnimationController, MenuController } from '@ionic/angular';
 import { ColumnMode, SelectionType } from '@swimlane/ngx-datatable';
+import { AuthService } from '../services/auth.service';
+import { DataService } from '../services/data.service';
 import { ToastService } from '../services/toast.service';
 
 @Component({
@@ -11,25 +13,36 @@ import { ToastService } from '../services/toast.service';
 export class TransactionPage implements OnInit {
   activeVariation: string = 'pending';
 
+  pendingTransactions: any[] = [];
+  submittedTransactions: any[] = [];
+  historyTransactions: any[] = [];
+
   constructor(
     private toast: ToastService,
     private animationCtrl: AnimationController,
-    private menuCtrl: MenuController
+    private menuCtrl: MenuController,
+    private dataService: DataService,
+    private authService: AuthService
   ) {}
 
   ngOnInit() {}
 
   ionViewWillEnter() {
     this.menuCtrl.enable(true);
+    this.getTransactionPending();
+    this.getTransactionSubmitted();
+    this.getTransactionHistory();
   }
 
   doRefresh(event) {
-    console.log(event);
-
-    setTimeout(() => {
-      console.log('Async operation has ended');
-      event.target.complete();
-    }, 2000);
+    this.getTransactionPending();
+    this.getTransactionSubmitted();
+    this.dataService
+      .getTransactions(this.authService.currentUser.id, false, true)
+      .subscribe((resp) => {
+        this.historyTransactions = resp;
+        event.target.complete();
+      });
   }
 
   segmentChanged(e: any) {
@@ -95,92 +108,69 @@ export class TransactionPage implements OnInit {
       .play();
   }
 
-
-
-
   ColumnMode = ColumnMode;
   SelectionType = SelectionType;
   selected = [];
-  // displayCheck(row) {
-  //   return row.name !== 'Ethel Price';
-  // }
+
+  submitPending() {
+    const arr: number[] = [];
+    this.selected.forEach((x) => {
+      arr.push(x.id);
+    });
+    this.dataService
+      .submitPendingSlips(this.authService.currentUser.id, arr)
+      .subscribe(
+        (resp) => {
+          this.toast.success('Successful');
+          this.getTransactionPending();
+          this.selected = [];
+        },
+        () => {
+          this.toast.danger('Something went wrong');
+        }
+      );
+  }
 
   onSelect({ selected }) {
-    console.log('Select Event', selected, this.selected);
-
     this.selected.splice(0, this.selected.length);
     this.selected.push(...selected);
   }
 
-  onActivate(event) {
-    // event.stopPropagation()
-    console.log('Activate Event', event);
-  }
+  onActivate(event) {}
 
   deleteTransaction(item) {
-    console.log(item)
+    this.dataService.deleteTransaction(item.id).subscribe(
+      (resp) => {
+        this.toast.success('Deleted successfully');
+        this.getTransactionPending();
+      },
+      () => {
+        this.toast.danger('Something went wrong');
+      }
+    );
   }
 
-  movies = [
-    {
-      name: 'Escape Room',
-      company: 'Columbia Pictures',
-      genre: 'Horror',
-    },
-    {
-      name: 'Rust Creek',
-      company: 'IFC Films',
-      genre: 'Drama',
-    },
-    {
-      name: 'American Hangman',
-      company: 'Hangman Productions',
-      genre: 'Thriller',
-    },
-    {
-      name: 'The Upside',
-      company: 'STX Entertainment',
-      genre: 'Comedy',
-    },
-    {
-      name: 'Replicas',
-      company: 'Entertainment Studios',
-      genre: 'Sci-Fi',
-    },
-    {
-      name: 'After Darkness',
-      company: 'Grindstone Group',
-      genre: 'Drama',
-    },
-    {
-      name: 'Glass',
-      company: 'Universal Pictures',
-      genre: 'Superhero',
-    },
-    {
-      name: 'Close',
-      company: 'Netflix',
-      genre: 'Action',
-    },
-    {
-      name: 'The Final Wish',
-      company: 'BondIt Capital',
-      genre: 'Horror',
-    },
-    {
-      name: 'Serenity',
-      company: 'Aviron Pictures',
-      genre: 'Drama',
-    },
-    {
-      name: 'Miss Bala',
-      company: 'Columbia Pictures',
-      genre: 'Thriller',
-    },
-    {
-      name: 'Velvet Buzzsaw',
-      company: 'Netflix',
-      genre: 'Comedy',
-    },
-  ];
+  getTransactionPending() {
+    this.dataService
+      .getTransactions(this.authService.currentUser.id, true)
+      .subscribe((resp) => {
+        this.pendingTransactions = resp;
+      });
+  }
+
+  getTransactionSubmitted() {
+    this.dataService
+      .getTransactions(this.authService.currentUser.id, false, false)
+      .subscribe((resp) => {
+        this.submittedTransactions = resp;
+      });
+  }
+
+  getTransactionHistory() {
+    this.dataService
+      .getTransactions(this.authService.currentUser.id, false, true)
+      .subscribe((resp) => {
+        this.historyTransactions = resp;
+      });
+  }
 }

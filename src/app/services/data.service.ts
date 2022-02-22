@@ -69,12 +69,27 @@ export class DataService {
     });
   }
 
-  getTransactions(staffId, isPending = '', isKasaPaid = '') {
+  getTransactions(staffId, isPending: any = '', isKasaPaid: any = '') {
     return this.http.get<any>(
-      `${environment.apiUrl}slot?staff=${staffId}&isPending=${isPending}&isKasaPaid=${isKasaPaid}`,
+      `${environment.apiUrl}slot/data?staff=${staffId}&isPending=${isPending}&isKasaPaid=${isKasaPaid}`,
       {
         headers: this.httpOptions.headers,
       }
     );
+  }
+
+  deleteTransaction(transactionId) {
+    return this.http.delete<any>(
+      `${environment.apiUrl}slip/delete/${transactionId}`,
+      {
+        headers: this.httpOptions.headers,
+      }
+    );
+  }
+
+  submitPendingSlips(staffId, obj) {
+    return this.http.post<any>(`${environment.apiUrl}slip/${staffId}`, obj, {
+      headers: this.httpOptions.headers,
+    });
   }
 }
