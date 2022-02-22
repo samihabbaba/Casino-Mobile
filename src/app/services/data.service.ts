@@ -68,4 +68,13 @@ export class DataService {
       headers: this.httpOptions.headers,
     });
   }
+
+  getTransactions(staffId, isPending = '', isKasaPaid = '') {
+    return this.http.get<any>(
+      `${environment.apiUrl}slot?staff=${staffId}&isPending=${isPending}&isKasaPaid=${isKasaPaid}`,
+      {
+        headers: this.httpOptions.headers,
+      }
+    );
+  }
 }
