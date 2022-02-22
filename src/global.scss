@@ -98,7 +98,7 @@
     display: none !important;
   }
   ion-list {
-    max-height: calc(100vh - 280px);
+    height: calc(100vh - 280px);
     overflow: auto;
     overscroll-behavior: contain;
   }

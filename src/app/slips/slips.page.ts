@@ -151,13 +151,10 @@ export class SlipsPage implements OnInit {
       this.dataService.addSlip(form).subscribe(
         (resp) => {
           this.initializeForm();
+          resp.id = resp.machineId;
+          this.handleListClick(resp);
           this.form.get('currencyId').patchValue(this.currencyList[0].id);
           this.form.get('rate').patchValue(this.currencyList[0].rate);
-          this.selectedMachine = null;
-          this.resetAmountAndCredit();
-          this.getMachines();
-          this.customersAutoComplete.clearModel();
-          this.customersAutoComplete.searchInput.nativeElement.placeholder = '';
           this.toast.success('Your changes saved successfully');
         },
         (err) => {
@@ -188,12 +185,11 @@ export class SlipsPage implements OnInit {
     this.form.get('currencyId').patchValue(currency.id);
     this.form.get('rate').patchValue(currency.rate);
 
-
-    if(this.recordType === 'Credit') {
+    if (this.recordType === 'Credit') {
       this.amountChange('s');
     }
 
-    if(this.recordType === 'Cancel Credit' || this.recordType === 'JackPot') {
+    if (this.recordType === 'Cancel Credit' || this.recordType === 'JackPot') {
       this.creditChange('s');
     }
   }

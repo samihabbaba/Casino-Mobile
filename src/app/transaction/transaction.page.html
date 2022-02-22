@@ -81,7 +81,7 @@
         <ngx-datatable-column name="Machine"></ngx-datatable-column>
         <ngx-datatable-column name="Amount">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
+            {{row?.symbol}} {{row.amount | number:'1.2-2'}}
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Record Type"></ngx-datatable-column>
@@ -120,7 +120,7 @@
         <ngx-datatable-column name="Machine"></ngx-datatable-column>
         <ngx-datatable-column name="Amount">
           <ng-template let-row="row" ngx-datatable-cell-template>
-            {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
+            {{row?.symbol}} {{row.amount | number:'1.2-2'}}
           </ng-template>
         </ngx-datatable-column>
         <ngx-datatable-column name="Record Type"></ngx-datatable-column>
@@ -130,24 +130,24 @@
       class="history"
       [class.active-variation]="activeVariation === 'history'"
     >
-    <ngx-datatable
-    style="width: 95% !important"
-    class="material"
-    [rows]="historyTransactions"
-    [columnMode]="ColumnMode.force"
-    [headerHeight]="50"
-    [footerHeight]="60"
-    [rowHeight]="50"
-    [limit]="10"
-  >
-    <ngx-datatable-column name="Machine"></ngx-datatable-column>
-    <ngx-datatable-column name="Amount">
-      <ng-template let-row="row" ngx-datatable-cell-template>
-        {{row.amount | number:'1.2-2'}} &nbsp; {{row?.symbol}}
-      </ng-template>
-    </ngx-datatable-column>
-    <ngx-datatable-column name="Record Type"></ngx-datatable-column>
-  </ngx-datatable>
+      <ngx-datatable
+        style="width: 95% !important"
+        class="material"
+        [rows]="historyTransactions"
+        [columnMode]="ColumnMode.force"
+        [headerHeight]="50"
+        [footerHeight]="60"
+        [rowHeight]="50"
+        [limit]="10"
+      >
+        <ngx-datatable-column name="Machine"></ngx-datatable-column>
+        <ngx-datatable-column name="Amount">
+          <ng-template let-row="row" ngx-datatable-cell-template>
+            {{row?.symbol}} {{row.amount | number:'1.2-2'}}
+          </ng-template>
+        </ngx-datatable-column>
+        <ngx-datatable-column name="Record Type"></ngx-datatable-column>
+      </ngx-datatable>
     </div>
   </div>
 </ion-content>
