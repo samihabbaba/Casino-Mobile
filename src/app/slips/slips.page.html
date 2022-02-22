@@ -14,7 +14,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col size="8"
+      <ion-col size="10"
         ><ion-card class="ion-no-margin ion-padding ion-margin-vertical">
           <h1 class="title ion-no-margin ion-margin-bottom">
             Add Slip
@@ -24,20 +24,26 @@
           </h1>
           <form class="form-container" [formGroup]="form">
             <ion-list class="ion-no-padding">
-              <ion-radio-group formControlName="type">
+              <ion-radio-group
+                formControlName="recordType"
+                (ionChange)=" this.resetAmountAndCredit()"
+              >
                 <ion-item [disabled]="!selectedMachine">
                   <ion-label>In</ion-label>
-                  <ion-radio slot="end" value="in"></ion-radio>
+                  <ion-radio slot="end" value="Credit"></ion-radio>
                 </ion-item>
 
                 <ion-item [disabled]="!selectedMachine">
                   <ion-label>Out</ion-label>
-                  <ion-radio slot="end" value="out"></ion-radio>
+                  <ion-radio slot="end" value="Cancel Credit"></ion-radio>
                 </ion-item>
 
-                <ion-item [disabled]="!selectedMachine">
+                <ion-item
+                  [disabled]="!selectedMachine"
+                  *ngIf="selectedMachine?.isJackPot"
+                >
                   <ion-label>JackPot</ion-label>
-                  <ion-radio slot="end" value="jackPot"></ion-radio>
+                  <ion-radio slot="end" value="JackPot"></ion-radio>
                 </ion-item>
               </ion-radio-group>
             </ion-list>
@@ -49,6 +55,7 @@
             >
               <ion-label class="autoComplete-label">Customer</ion-label>
               <ng-select
+                #customersAutoComplete
                 style="margin-top: 6px"
                 [items]="customers"
                 bindLabel="name"
@@ -59,12 +66,15 @@
               </ng-select>
             </div>
 
-            <ion-item [disabled]="!selectedMachine">
+            <ion-item [disabled]="!selectedMachine || recordType ==='Credit'">
               <ion-label position="floating">Credit</ion-label>
               <ion-input
-                formControlName="credit"
                 min="0"
                 type="number"
+                inputmode="decimal"
+                [(ngModel)]="formCredit"
+                [ngModelOptions]="{standalone:true}"
+                (ngModelChange)="creditChange($event)"
               ></ion-input>
               <ion-icon
                 name="card-outline"
@@ -73,12 +83,17 @@
               ></ion-icon>
             </ion-item>
 
-            <ion-item [disabled]="!selectedMachine">
+            <ion-item
+              [disabled]="!selectedMachine || recordType ==='Cancel Credit' || recordType ==='JackPot'"
+            >
               <ion-label position="floating">Amount</ion-label>
               <ion-input
-                formControlName="amount"
                 min="0"
                 type="number"
+                inputmode="decimal"
+                [(ngModel)]="formAmount"
+                [ngModelOptions]="{standalone:true}"
+                (ngModelChange)="amountChange($event)"
               ></ion-input>
               <ion-icon
                 name="cash-outline"
@@ -101,7 +116,7 @@
                 <div
                   *ngFor="let item of currencyList"
                   [class.active]="selectedCurrency === item.id"
-                  (click)="changeCurrency(item.id)"
+                  (click)="changeCurrency(item)"
                 >
                   {{item.code}}
                 </div>
@@ -130,11 +145,12 @@
           </form>
         </ion-card></ion-col
       >
-      <ion-col size="4" class="machine-list">
+      <ion-col size="2" class="machine-list">
         <ion-searchbar
           [debounce]="0"
           [(ngModel)]="searchQuery"
           (ionChange)="search($event)"
+          placeholder=""
           showClearButton="never"
           inputmode="numeric"
           mode="ios"
@@ -147,7 +163,7 @@
               (click)="handleListClick(item)"
               class="ion-no-padding ion-text-center"
               *ngFor="let item of copyOfMachineList"
-              [ngClass]="{'active-machine': item == selectedMachine}"
+              [ngClass]="{'active-machine': item.id === selectedMachine?.machineId}"
             >
               <ion-label>{{item.seqNumber}}</ion-label>
             </ion-item>

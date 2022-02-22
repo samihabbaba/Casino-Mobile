@@ -29,6 +29,12 @@ export class DataService {
     });
   }
 
+  getMachineById(id) {
+    return this.http.get<any>(`${environment.apiUrlv2}mobile/machine/${id}`, {
+      headers: this.httpOptions.headers,
+    });
+  }
+
   getCustomersAutoComplete(searchQuery = '') {
     if (searchQuery.length < 1) {
       return of(null);
@@ -39,6 +45,12 @@ export class DataService {
         headers: this.httpOptions.headers,
       }
     );
+  }
+
+  addSlip(obj) {
+    return this.http.post<any>(`${environment.apiUrl}slip`, obj, {
+      headers: this.httpOptions.headers,
+    });
   }
 
   addMeter(obj, machineId) {
@@ -52,11 +64,8 @@ export class DataService {
   }
 
   getUserWallet(id) {
-    return this.http.get<any>(
-      `${environment.apiUrl}mobile/wallet/${id}`,
-      {
-        headers: this.httpOptions.headers,
-      }
-    );
+    return this.http.get<any>(`${environment.apiUrl}mobile/wallet/${id}`, {
+      headers: this.httpOptions.headers,
+    });
   }
 }
