@@ -123,6 +123,8 @@ export class TransactionPage implements OnInit {
         (resp) => {
           this.toast.success('Successful');
           this.getTransactionPending();
+          this.getTransactionSubmitted();
+          this.getTransactionHistory();
           this.selected = [];
         },
         (err) => {
