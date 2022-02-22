@@ -160,8 +160,8 @@ export class SlipsPage implements OnInit {
           this.customersAutoComplete.searchInput.nativeElement.placeholder = '';
           this.toast.success('Your changes saved successfully');
         },
-        () => {
-          this.toast.danger('Something went wrong');
+        (err) => {
+          this.toast.danger(err.error.Message);
         }
       );
     } else {

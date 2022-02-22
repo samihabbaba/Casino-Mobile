@@ -125,8 +125,8 @@ export class TransactionPage implements OnInit {
           this.getTransactionPending();
           this.selected = [];
         },
-        () => {
-          this.toast.danger('Something went wrong');
+        (err) => {
+          this.toast.danger(err.error.Message);
         }
       );
   }
