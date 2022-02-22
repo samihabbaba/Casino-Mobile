@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
       <ion-back-button defaultHref="slips"></ion-back-button>
     </ion-buttons>
-    <ion-title>Wallet</ion-title>
+    <ion-title class="title">Wallet</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -14,40 +14,40 @@
   <ion-list>
     <ion-item>
       <ion-icon slot="start" color="primary" name="cash-outline"></ion-icon>
-      <ion-label
-        >TL &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >TL &nbsp;<span  class="item-value"
           >{{userDetails?.tlAmount | number:"1.2-2"}}</span
         >
       </ion-label>
     </ion-item>
     <ion-item>
       <ion-icon slot="start" color="primary" name="cash-outline"></ion-icon>
-      <ion-label
-        >USD &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >USD &nbsp;<span  class="item-value"
           >{{userDetails?.usdAmount | number:"1.2-2"}}</span
         ></ion-label
       >
     </ion-item>
     <ion-item>
       <ion-icon slot="start" color="primary" name="cash-outline"></ion-icon>
-      <ion-label
-        >EURO &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >EURO &nbsp;<span  class="item-value"
           >{{userDetails?.euroAmount | number:"1.2-2"}}</span
         ></ion-label
       >
     </ion-item>
     <ion-item>
       <ion-icon slot="start" color="primary" name="cash-outline"></ion-icon>
-      <ion-label
-        >POUND &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >POUND &nbsp;<span  class="item-value"
           >{{userDetails?.stgAmount | number:"1.2-2"}}</span
         ></ion-label
       >
     </ion-item>
     <ion-item>
       <ion-icon slot="start" color="primary" name="card-outline"></ion-icon>
-      <ion-label
-        >Credit &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >Credit &nbsp;<span  class="item-value"
           >{{userDetails?.creditCard | number:"1.2-2"}}</span
         ></ion-label
       >
@@ -55,8 +55,8 @@
 
     <ion-item>
       <ion-icon slot="start" color="primary" name="server-outline"></ion-icon>
-      <ion-label
-        >Chip &nbsp;<span class="item-value"
+      <ion-label color="dark"
+        >Chip &nbsp;<span  class="item-value"
           >{{userDetails?.chip | number:"1.2-2"}}</span
         ></ion-label
       >
