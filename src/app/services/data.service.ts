@@ -50,4 +50,13 @@ export class DataService {
       }
     );
   }
+
+  getUserWallet(id) {
+    return this.http.get<any>(
+      `${environment.apiUrl}mobile/wallet/${id}`,
+      {
+        headers: this.httpOptions.headers,
+      }
+    );
+  }
 }

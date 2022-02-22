@@ -1,7 +1,7 @@
 <ion-menu side="start" contentId="main">
   <ion-content>
     <ion-list>
-      <ion-item>
+      <ion-item button [routerLink]="['/wallet']" routerDirection="forward">
         <ion-icon color="primary" name="person-outline" slot="start"></ion-icon>
         <ion-label>{{ authService.currentUser?.name }}</ion-label>
       </ion-item>
