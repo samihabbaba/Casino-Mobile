@@ -85,8 +85,10 @@ export class MeterPage implements OnInit {
       this.dataService.addMeter(form, this.selectedMachine.id).subscribe(
         (resp) => {
           this.initializeForm();
-          this.selectedMachine = null;
-          this.getMachines();
+          const currentIndex = this.machineList.findIndex(
+            (x) => x.id === this.selectedMachine.id
+          );
+          this.selectedMachine = this.machineList[currentIndex + 1];
           this.toast.success('Your changes saved successfully');
         },
         (err) => {
